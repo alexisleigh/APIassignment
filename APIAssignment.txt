@@ -1,0 +1,42 @@
+Advanced Data Journalism, Fall 2018
+Alexis Allison
+
+API Assignment, Nov. 26, 2018
+
+1. What URL would you use to get a list of the the most recent votes in the House?
+
+https://api.propublica.org/congress/v1/house/votes/recent.json
+
+
+2. How about to get a list of all members of Congress from Missouri?
+
+For the Senate: https://api.propublica.org/congress/v1/members/senate/MO/current.json
+
+For the House: https://api.propublica.org/congress/v1/members/house/MO/current.json
+
+#Question for Chase: Why can't we just use "both" here? In the chamber section? It's not an option listed here, though it is elsewhere on the website.
+
+3. The New York Times used a version of this API to do this interactive about the sequence of votes leading up to the confirmation of Neil Gorsuch to the Supreme Court. How would you use the API to get the information about these votes? Hint: The votes were on April 6/7, 2017.
+
+https://api.propublica.org/congress/v1/senate/votes/2017-04-06/2017-04-07.json
+
+#I'm also curious about the "roll-call vote" option. Do I need to combine it somehow with this specific date? Or does the URL I've pasted above break down the votes by person? (Still learning to read the outputs listed as examples.) 
+
+
+4. In this response, which details all members leaving office, how would you get the first and last name of the first result in the list? (Hint: Use dictionary and list lookup syntax ...)
+
+import json
+import requests
+
+API_KEY = 'OylOqGPorg2UjpgDMgoGnVtRBKDhcNn7q6XF0rVb'
+
+url = 'https://api.propublica.org/congress/v1/115/senate/members/leaving.json'
+
+response = requests.get(url, headers={"X-API-Key": API_KEY}).content
+
+data = json.loads(response)
+
+print data['results'][0]['members'][0]['first_name', 'last_name']
+
+
+#Chase — a confession. I looked at Claire's homework submission to help me on this last one (Claire is the true data Goddess) BEFORE I figured out an answer. We went about the final line in a different way. I imagine she is correct, but I'm going to stick to my own response and I'd like to go over it in class if we can.
